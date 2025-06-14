@@ -1,15 +1,113 @@
 <!-- src/app/components/dashboard/dashboard.component.html -->
-<h2>Dashboard</h2>
-<p>Welcome, your role is: {{ role }}</p>
+<div class="container">
+  <div class="card fade-in" style="margin-top: 2rem">
+    <h2 class="page-title">Dashboard</h2>
 
-<div *ngIf="role === 'Admin'">
-  <p>🛠️ Admin Panel: Manage users and roles</p>
-</div>
+    <div *ngIf="role === 'Admin'" class="slide-in">
+      <h3 class="section-title">
+        <i class="fas fa-users-cog"></i> User Management
+      </h3>
 
-<div *ngIf="role === 'Editor'">
-  <p>✍️ Editor Zone: Create and edit content</p>
-</div>
+      <div style="overflow-x: auto">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th><i class="fas fa-user"></i> Name</th>
+              <th><i class="fas fa-envelope"></i> Email</th>
+              <th><i class="fas fa-id-badge"></i> Current Role</th>
+              <th><i class="fas fa-edit"></i> Change Role</th>
+              <th><i class="fas fa-cogs"></i> Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem">
+                  <div
+                    style="
+                      width: 40px;
+                      height: 40px;
+                      border-radius: 50%;
+                      background: linear-gradient(
+                        135deg,
+                        #667eea 0%,
+                        #764ba2 100%
+                      );
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      color: white;
+                      font-weight: bold;
+                    "
+                  >
+                    {{ user.fullName.charAt(0).toUpperCase() }}
+                  </div>
+                  {{ user.fullName }}
+                </div>
+              </td>
+              <td>{{ user.email }}</td>
+              <td>
+                <span
+                  [ngClass]="{
+                    'badge-admin': user.role === 'Admin',
+                    'badge-editor': user.role === 'Editor',
+                    'badge-viewer': user.role === 'Viewer'
+                  }"
+                  class="role-badge"
+                >
+                  {{ user.role }}
+                </span>
+              </td>
+              <td>
+                <select
+                  [(ngModel)]="user.role"
+                  (change)="updateRole(user)"
+                  class="form-select"
+                  style="min-width: 140px"
+                >
+                  <option value="Admin">Administrator</option>
+                  <option value="Editor">Editor</option>
+                  <option value="Viewer">Viewer</option>
+                </select>
+              </td>
+              <td>
+                <button
+                  class="btn btn-primary"
+                  (click)="updateRole(user)"
+                  style="padding: 0.5rem 1rem; font-size: 0.9rem"
+                >
+                  <i class="fas fa-save"></i> Update
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-<div *ngIf="role === 'Viewer'">
-  <p>👁️ Viewer View: Read-only access</p>
+      <div *ngIf="users.length === 0" style="text-align: center; padding: 3rem">
+        <i
+          class="fas fa-users"
+          style="font-size: 4rem; color: #ccc; margin-bottom: 1rem"
+        ></i>
+        <p style="color: #666; font-size: 1.1rem">No users found</p>
+      </div>
+    </div>
+
+    <div
+      *ngIf="role !== 'Admin'"
+      class="slide-in"
+      style="text-align: center; padding: 3rem"
+    >
+      <i
+        class="fas fa-dashboard"
+        style="font-size: 4rem; color: #667eea; margin-bottom: 1rem"
+      ></i>
+      <h3 style="color: #555; margin-bottom: 1rem">
+        Welcome to your Dashboard
+      </h3>
+      <p style="color: #666; font-size: 1.1rem">
+        You are logged in as: <strong>{{ role }}</strong>
+      </p>
+    </div>
+  </div>
 </div>

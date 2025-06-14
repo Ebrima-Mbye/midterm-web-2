@@ -1,33 +1,60 @@
 <!-- src/app/components/register/register.component.html -->
-<h2>Register</h2>
-<form (submit)="register()">
-  <input
-    type="text"
-    placeholder="Full Name"
-    [(ngModel)]="user.fullName"
-    name="fullName"
-    required
-  />
-  <input
-    type="email"
-    placeholder="Email"
-    [(ngModel)]="user.email"
-    name="email"
-    required
-  />
-  <input
-    type="password"
-    placeholder="Password"
-    [(ngModel)]="user.password"
-    name="password"
-    required
-  />
+<div class="container">
+  <div class="card fade-in" style="max-width: 500px; margin: 4rem auto">
+    <h2 class="page-title">Create Account</h2>
+    <form (submit)="register()" class="slide-in">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Enter your full name"
+          [(ngModel)]="user.fullName"
+          name="fullName"
+          required
+        />
+      </div>
 
-  <select [(ngModel)]="user.role" name="role">
-    <option value="Admin">Admin</option>
-    <option value="Editor">Editor</option>
-    <option value="Viewer">Viewer</option>
-  </select>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input
+          type="email"
+          class="form-input"
+          placeholder="Enter your email"
+          [(ngModel)]="user.email"
+          name="email"
+          required
+        />
+      </div>
 
-  <button type="submit">Register</button>
-</form>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-input"
+          placeholder="Create a password"
+          [(ngModel)]="user.password"
+          name="password"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Role</label>
+        <select [(ngModel)]="user.role" name="role" class="form-select">
+          <option value="Admin">Administrator</option>
+          <option value="Editor">Editor</option>
+          <option value="Viewer">Viewer</option>
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-success"
+        style="width: 100%; margin-top: 1rem"
+      >
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+    </form>
+  </div>
+</div>

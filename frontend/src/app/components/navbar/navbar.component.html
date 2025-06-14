@@ -1,6 +1,48 @@
-<!-- src/app/components/navbar/navbar.component.html -->
-<nav>
-  <a routerLink="/login">Login</a> | <a routerLink="/register">Register</a> |
-  <a routerLink="/dashboard" *ngIf="auth.isLoggedIn()">Dashboard</a> |
-  <button (click)="logout()" *ngIf="auth.isLoggedIn()">Logout</button>
+<!-- src/app/components/navbar/navbar.component.html
+<nav class="navbar">
+  <div class="navbar-content">
+    <div class="navbar-brand">UserHub</div>
+    <div class="navbar-nav">
+      <a routerLink="/login" class="nav-link" *ngIf="!auth.isLoggedIn()"
+        >Login</a
+      >
+      <a routerLink="/register" class="nav-link" *ngIf="!auth.isLoggedIn()"
+        >Register</a
+      >
+      <a routerLink="/dashboard" class="nav-link" *ngIf="auth.isLoggedIn()"
+        >Dashboard</a
+      >
+      <button
+        class="btn btn-danger"
+        (click)="logout()"
+        *ngIf="auth.isLoggedIn()"
+      >
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </div>
+</nav> -->
+
+<nav class="navbar">
+  <div class="navbar-content">
+    <div class="navbar-brand">UserHub</div>
+    <div class="navbar-nav">
+      <a routerLink="/login" class="nav-link" *ngIf="!auth.isLoggedIn()"
+        >Login</a
+      >
+      <a routerLink="/register" class="nav-link" *ngIf="!auth.isLoggedIn()"
+        >Register</a
+      >
+      <a routerLink="/dashboard" class="nav-link" *ngIf="auth.isLoggedIn()"
+        >Dashboard</a
+      >
+      <button
+        class="btn btn-danger"
+        (click)="logout()"
+        *ngIf="auth.isLoggedIn()"
+      >
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </div>
 </nav>

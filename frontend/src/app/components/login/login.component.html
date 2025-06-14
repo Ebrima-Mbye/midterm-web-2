@@ -1,20 +1,43 @@
 <!-- src/app/components/login/login.component.html -->
-<h2>Login</h2>
-<form (submit)="login()">
-  <input
-    type="email"
-    placeholder="Email"
-    [(ngModel)]="user.email"
-    name="email"
-    required
-  />
-  <input
-    type="password"
-    placeholder="Password"
-    [(ngModel)]="user.password"
-    name="password"
-    required
-  />
-  <button type="submit">Login</button>
-  <p *ngIf="error" style="color: red">{{ error }}</p>
-</form>
+<div class="container">
+  <div class="card fade-in" style="max-width: 500px; margin: 4rem auto">
+    <h2 class="page-title">Welcome Back</h2>
+    <form (submit)="login()" class="slide-in">
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input
+          type="email"
+          class="form-input"
+          placeholder="Enter your email"
+          [(ngModel)]="user.email"
+          name="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-input"
+          placeholder="Enter your password"
+          [(ngModel)]="user.password"
+          name="password"
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        style="width: 100%; margin-top: 1rem"
+      >
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+
+      <div *ngIf="error" class="error-message">
+        <i class="fas fa-exclamation-triangle"></i> {{ error }}
+      </div>
+    </form>
+  </div>
+</div>

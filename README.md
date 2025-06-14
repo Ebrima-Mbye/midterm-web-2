@@ -70,6 +70,7 @@ ng serve
 
 ## Project Structure
 
+```text
 midterm/
 ├── backend/
 │ ├── controllers/
@@ -94,6 +95,7 @@ midterm/
 │ ├── angular.json
 | └── .gitignore
 ├── README.md
+```
 
 ## Setup Instructions
 
