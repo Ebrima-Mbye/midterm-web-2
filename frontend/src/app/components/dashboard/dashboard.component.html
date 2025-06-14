@@ -81,13 +81,50 @@
       </div>
     </div>
 
-    <div *ngIf="role !== 'Admin'" class="welcome-section slide-in">
-      <i class="fas fa-tachometer-alt"></i>
-      <h3>Welcome to your Dashboard</h3>
-      <p>
-        You are logged in as: <strong>{{ role }}</strong>
+    <div
+      *ngIf="role !== 'Admin'"
+      class="welcome-section slide-in text-center"
+      style="padding: 2rem"
+    >
+      <i class="fas fa-user-circle" style="font-size: 4rem; color: #667eea"></i>
+      <h3 style="margin-top: 1rem">Welcome to your Dashboard</h3>
+      <p style="font-size: 1.1rem">
+        Hello! You’re logged in as a <strong>{{ role }}</strong
+        >.
       </p>
-      <h4>Login as Admin to be able to see the dashboard</h4>
+
+      <div *ngIf="role === 'Editor'" class="mt-3">
+        <p>
+          As an <strong>Editor</strong>, your role is to manage and update
+          content across the system.
+        </p>
+        <ul style="list-style: none; padding: 0; color: #555">
+          <li><i class="fas fa-edit me-1"></i> Create and modify entries</li>
+          <li>
+            <i class="fas fa-share-square me-1"></i> Submit updates for review
+          </li>
+          <li>
+            <i class="fas fa-check-circle me-1"></i> Ensure content quality
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="role === 'Viewer'" class="mt-3">
+        <p>As a <strong>Viewer</strong>, your access is read-only.</p>
+        <ul style="list-style: none; padding: 0; color: #555">
+          <li><i class="fas fa-eye me-1"></i> Browse data securely</li>
+          <li>
+            <i class="fas fa-info-circle me-1"></i> Stay updated with live info
+          </li>
+          <li>
+            <i class="fas fa-user-shield me-1"></i> View content approved by
+            Admins
+          </li>
+        </ul>
+      </div>
+      <p style="margin-top: 2rem; font-size: 0.95rem; color: #999">
+        Want more access? Contact an admin to upgrade your role.
+      </p>
     </div>
   </div>
 </div>
