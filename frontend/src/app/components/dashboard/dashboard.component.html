@@ -70,15 +70,25 @@
                   <option value="Viewer">Viewer</option>
                 </select>
               </td>
+              <!-- Let's allow the admin to be able to delete users -->
               <td>
                 <button
-                  class="btn btn-primary"
+                  class="btn btn-sm btn-primary me-2"
                   (click)="updateRole(user)"
-                  style="padding: 0.5rem 1rem; font-size: 0.9rem"
+                  [disabled]="isLastAdmin(user)"
                 >
-                  <i class="fas fa-save"></i> Update
+                  Save
+                </button>
+
+                <button
+                  class="btn btn-sm btn-danger"
+                  (click)="confirmDelete(user)"
+                  [disabled]="isLastAdmin(user)"
+                >
+                  Delete
                 </button>
               </td>
+              <!-- ------------ -->
             </tr>
           </tbody>
         </table>

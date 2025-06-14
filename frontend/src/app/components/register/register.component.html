@@ -2,59 +2,139 @@
 <div class="container">
   <div class="card fade-in" style="max-width: 500px; margin: 4rem auto">
     <h2 class="page-title">Create Account</h2>
-    <form (submit)="register()" class="slide-in">
+
+    <form
+      (ngSubmit)="register()"
+      #registerForm="ngForm"
+      class="slide-in"
+      novalidate
+    >
+      <!-- Full Name -->
       <div class="form-group">
-        <label class="form-label">Full Name</label>
-        <input
-          type="text"
-          class="form-input"
-          placeholder="Enter your full name"
-          [(ngModel)]="user.fullName"
-          name="fullName"
-          required
-        />
+        <label class="form-label">Full Name *</label>
+        <div class="input-container">
+          <input
+            type="text"
+            class="form-input"
+            [class.error]="errors.fullName"
+            [class.success]="user.fullName.trim() && !errors.fullName"
+            placeholder="Enter your full name"
+            [(ngModel)]="user.fullName"
+            name="fullName"
+            (blur)="onBlur('fullName')"
+            required
+          />
+          <i class="fas fa-user input-icon"></i>
+        </div>
+        <div *ngIf="errors.fullName" class="field-error">
+          <i class="fas fa-exclamation-circle"></i> {{ errors.fullName }}
+        </div>
       </div>
 
+      <!-- Email -->
       <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input
-          type="email"
-          class="form-input"
-          placeholder="Enter your email"
-          [(ngModel)]="user.email"
-          name="email"
-          required
-        />
+        <label class="form-label">Email Address *</label>
+        <div class="input-container">
+          <input
+            type="email"
+            class="form-input"
+            [class.error]="errors.email"
+            [class.success]="user.email.trim() && !errors.email"
+            placeholder="Enter your email"
+            [(ngModel)]="user.email"
+            name="email"
+            (blur)="onBlur('email')"
+            required
+          />
+          <i class="fas fa-envelope input-icon"></i>
+        </div>
+        <div *ngIf="errors.email" class="field-error">
+          <i class="fas fa-exclamation-circle"></i> {{ errors.email }}
+        </div>
       </div>
 
+      <!-- Password -->
       <div class="form-group">
-        <label class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-input"
-          placeholder="Create a password"
-          [(ngModel)]="user.password"
-          name="password"
-          required
-        />
+        <label class="form-label">Password *</label>
+        <div class="input-container">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            class="form-input password-input"
+            [class.error]="errors.password"
+            [class.success]="user.password && !errors.password"
+            placeholder="Create a password"
+            [(ngModel)]="user.password"
+            name="password"
+            (blur)="onBlur('password')"
+            required
+          />
+          <i class="fas fa-lock input-icon"></i>
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="togglePasswordVisibility()"
+          >
+            <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          </button>
+        </div>
+        <div *ngIf="errors.password" class="field-error">
+          <i class="fas fa-exclamation-circle"></i> {{ errors.password }}
+        </div>
+        <div class="password-requirements mt-2">
+          <small>Password must contain:</small>
+          <ul class="list-unstyled">
+            <li [class.met]="hasMinLength()">✔ At least 6 characters</li>
+            <li [class.met]="hasLowercase()">✔ One lowercase letter</li>
+            <li [class.met]="hasUppercase()">✔ One uppercase letter</li>
+            <li [class.met]="hasDigit()">✔ One number</li>
+          </ul>
+        </div>
       </div>
 
+      <!-- Role -->
       <div class="form-group">
         <label class="form-label">Role</label>
-        <select [(ngModel)]="user.role" name="role" class="form-select">
-          <option value="Admin">Administrator</option>
-          <option value="Editor">Editor</option>
-          <option value="Viewer">Viewer</option>
-        </select>
+        <div class="input-container">
+          <select [(ngModel)]="user.role" name="role" class="form-select">
+            <option value="Admin">Administrator</option>
+            <option value="Editor">Editor</option>
+            <option value="Viewer">Viewer</option>
+          </select>
+          <i class="fas fa-id-badge input-icon"></i>
+        </div>
       </div>
 
+      <!-- General Error -->
+      <div *ngIf="errors.general" class="error-message">
+        <i class="fas fa-exclamation-triangle"></i> {{ errors.general }}
+      </div>
+
+      <!-- Submit -->
       <button
         type="submit"
         class="btn btn-success"
         style="width: 100%; margin-top: 1rem"
+        [disabled]="isSubmitting"
+        [class.loading]="isSubmitting"
       >
-        <i class="fas fa-user-plus"></i> Create Account
+        <span *ngIf="!isSubmitting">
+          <i class="fas fa-user-plus"></i> Create Account
+        </span>
+        <span *ngIf="isSubmitting">
+          <i class="fas fa-spinner fa-spin"></i> Creating Account...
+        </span>
       </button>
+
+      <!-- Login Redirect -->
+      <p style="text-align: center; margin-top: 1.5rem; color: #666">
+        Already have an account?
+        <a
+          routerLink="/login"
+          style="color: #667eea; text-decoration: none; font-weight: 600"
+        >
+          Sign in here
+        </a>
+      </p>
     </form>
   </div>
 </div>

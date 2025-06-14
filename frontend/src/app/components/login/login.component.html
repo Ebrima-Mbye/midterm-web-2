@@ -2,42 +2,89 @@
 <div class="container">
   <div class="card fade-in" style="max-width: 500px; margin: 4rem auto">
     <h2 class="page-title">Welcome Back</h2>
-    <form (submit)="login()" class="slide-in">
+    <form (ngSubmit)="login()" #loginForm="ngForm" class="slide-in" novalidate>
+      <!-- Email Field -->
       <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input
-          type="email"
-          class="form-input"
-          placeholder="Enter your email"
-          [(ngModel)]="user.email"
-          name="email"
-          required
-        />
+        <label class="form-label">Email Address *</label>
+        <div class="input-container">
+          <input
+            type="email"
+            class="form-input"
+            [class.error]="errors.email"
+            [class.success]="user.email.trim() && !errors.email"
+            placeholder="Enter your email"
+            [(ngModel)]="user.email"
+            name="email"
+            (blur)="onEmailBlur()"
+            required
+          />
+          <i class="fas fa-envelope input-icon"></i>
+        </div>
+        <div *ngIf="errors.email" class="field-error">
+          <i class="fas fa-exclamation-circle"></i> {{ errors.email }}
+        </div>
       </div>
 
+      <!-- Password Field -->
       <div class="form-group">
-        <label class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-input"
-          placeholder="Enter your password"
-          [(ngModel)]="user.password"
-          name="password"
-          required
-        />
+        <label class="form-label">Password *</label>
+        <div class="input-container">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            class="form-input password-input"
+            [class.error]="errors.password"
+            [class.success]="user.password && !errors.password"
+            placeholder="Enter your password"
+            [(ngModel)]="user.password"
+            name="password"
+            (blur)="onPasswordBlur()"
+            required
+          />
+          <i class="fas fa-lock input-icon"></i>
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="togglePasswordVisibility()"
+          >
+            <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          </button>
+        </div>
+        <div *ngIf="errors.password" class="field-error">
+          <i class="fas fa-exclamation-circle"></i> {{ errors.password }}
+        </div>
       </div>
 
+      <!-- General Error -->
+      <div *ngIf="errors.general" class="error-message">
+        <i class="fas fa-exclamation-triangle"></i> {{ errors.general }}
+      </div>
+
+      <!-- Submit Button -->
       <button
         type="submit"
         class="btn btn-primary"
         style="width: 100%; margin-top: 1rem"
+        [disabled]="isSubmitting"
+        [class.loading]="isSubmitting"
       >
-        <i class="fas fa-sign-in-alt"></i> Sign In
+        <span *ngIf="!isSubmitting">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </span>
+        <span *ngIf="isSubmitting">
+          <i class="fas fa-spinner fa-spin"></i> Signing In...
+        </span>
       </button>
 
-      <div *ngIf="error" class="error-message">
-        <i class="fas fa-exclamation-triangle"></i> {{ error }}
-      </div>
+      <!-- Register Link -->
+      <p style="text-align: center; margin-top: 1.5rem; color: #666">
+        Don't have an account?
+        <a
+          routerLink="/register"
+          style="color: #667eea; text-decoration: none; font-weight: 600"
+        >
+          Create one here
+        </a>
+      </p>
     </form>
   </div>
 </div>

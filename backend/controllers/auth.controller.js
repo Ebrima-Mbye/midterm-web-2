@@ -17,7 +17,11 @@ exports.register = async (req, res) => {
     if (existing)
       return res.status(400).json({ message: "User already exists" });
 
-    const newUser = new User({ fullName, email, password, role });
+    // Check if any users already exist
+    const userCount = await User.countDocuments();
+    const finalRole = userCount === 0 ? "Admin" : role;
+
+    const newUser = new User({ fullName, email, password, role: finalRole });
     await newUser.save();
 
     res.status(201).json({ message: "User registered!" });
