@@ -1,0 +1,20 @@
+<!-- src/app/components/login/login.component.html -->
+<h2>Login</h2>
+<form (submit)="login()">
+  <input
+    type="email"
+    placeholder="Email"
+    [(ngModel)]="user.email"
+    name="email"
+    required
+  />
+  <input
+    type="password"
+    placeholder="Password"
+    [(ngModel)]="user.password"
+    name="password"
+    required
+  />
+  <button type="submit">Login</button>
+  <p *ngIf="error" style="color: red">{{ error }}</p>
+</form>

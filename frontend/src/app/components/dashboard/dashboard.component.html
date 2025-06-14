@@ -1,0 +1,15 @@
+<!-- src/app/components/dashboard/dashboard.component.html -->
+<h2>Dashboard</h2>
+<p>Welcome, your role is: {{ role }}</p>
+
+<div *ngIf="role === 'Admin'">
+  <p>🛠️ Admin Panel: Manage users and roles</p>
+</div>
+
+<div *ngIf="role === 'Editor'">
+  <p>✍️ Editor Zone: Create and edit content</p>
+</div>
+
+<div *ngIf="role === 'Viewer'">
+  <p>👁️ Viewer View: Read-only access</p>
+</div>
